@@ -13,8 +13,9 @@ ENV PATH="/go/bin:${PATH}"
 ENV CGO_ENABLED=1 GOOS=linux GOARCH=amd64 GO111MODULE=on
 ENV TZ America/Sao_Paulo
 
-## PREPARE FOR gRPC & Evans
-RUN go install google.golang.org/grpc/cmd/protoc-gen-go-grpc@latest && \
+## PREPARE FOR protoc, gRPC & Evans
+RUN apt-get install -y protobuf-compiler && \
+    go install google.golang.org/grpc/cmd/protoc-gen-go-grpc@latest && \
     go install google.golang.org/protobuf/cmd/protoc-gen-go@latest && \
     wget https://github.com/ktr0731/evans/releases/download/0.9.1/evans_linux_amd64.tar.gz && \
     tar -xzvf evans_linux_amd64.tar.gz && \
