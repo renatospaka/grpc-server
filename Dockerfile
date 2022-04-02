@@ -8,7 +8,9 @@ RUN apt-get update && \
 WORKDIR /go/src
 
 ## SET ENVIRONMENT
-ENV CGO_ENABLED=0 GOOS=linux GOARCH=amd64
+# ENV CGO_ENABLED=0 GOOS=linux GOARCH=amd64
+ENV PATH="/go/bin:${PATH}"
+ENV CGO_ENABLED=1 GOOS=linux GOARCH=amd64 GO111MODULE=on
 ENV TZ America/Sao_Paulo
 
 ## START A PROJECT
