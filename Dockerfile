@@ -1,17 +1,13 @@
-# FROM golang:1.16.5-stretch
 FROM golang:1.18.0-stretch
 
 ## UPDATE THE OS
 RUN apt-get update && \
     apt-get install build-essential librdkafka-dev -y  && \
-    apt-get install -y tzdata  && \
-    go install github.com/spf13/cobra-cli@latest
-
+    apt-get install -y tzdata  
 
 WORKDIR /go/src
 
 ## SET ENVIRONMENT
-# ENV PATH="/go/bin:${PATH}"
 ENV CGO_ENABLED=0 GOOS=linux GOARCH=amd64
 ENV TZ America/Sao_Paulo
 
@@ -19,7 +15,7 @@ ENV TZ America/Sao_Paulo
 RUN go mod init server
 
 ## COPY NECESSARY FILES
-COPY go.mod .
+COPY go.mod go.sum ./
 RUN go mod download && \
     go mod tidy
 
